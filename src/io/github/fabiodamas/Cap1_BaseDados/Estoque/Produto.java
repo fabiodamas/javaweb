@@ -3,11 +3,10 @@ package io.github.fabiodamas.Cap1_BaseDados.Estoque;
 import java.util.Date;
 
 public class Produto {
-
 	private int id;
 	private String nome;
 	private Date dataCriacao;
-	private String email_fabricante;
+	private String emailFabricante;
 
 	public int getId() {
 		return this.id;
@@ -25,4 +24,19 @@ public class Produto {
 		this.nome = novo;
 	}
 
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public String getEmailFabricante() {
+		return emailFabricante;
+	}
+
+	public void setEmailFabricante(String emailFabricante) {
+		this.emailFabricante = emailFabricante;
+	}	
 }

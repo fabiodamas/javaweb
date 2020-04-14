@@ -21,19 +21,23 @@ public class ProdutoDao {
 		try {
 			// banco de dados
 
-			String sql = "create table IF NOT EXISTS produto (id INTEGER IDENTITY PRIMARY KEY, nome varchar(30)); ";
-
+			String sql = "drop table produto";
 			java.sql.PreparedStatement stmt = connection.prepareStatement(sql);
-
 			stmt.execute();
 			stmt.close();
+			
+			sql = "create table IF NOT EXISTS produto (id INTEGER IDENTITY PRIMARY KEY, nome varchar(30), emailFabricante varchar(30), dataCriacao date) ; ";
+			stmt = connection.prepareStatement(sql);
+			stmt.execute();
+			stmt.close();
+			
 
-			sql = "insert into produto (nome) values ( 'máscara') ;";
+			sql = "insert into produto (nome, emailFabricante, dataCriacao) values ( 'máscara','contato@sol.com.br', '2020-04-13') ;";
 			stmt = connection.prepareStatement(sql);
 			stmt.execute();
 			stmt.close();
 
-			sql = " insert into produto (nome) values ('cama') ;";
+			sql = "insert into produto (nome, emailFabricante, dataCriacao) values ( 'camisa','contato@riachuelo.com.br', '2020-04-13') ;";
 			stmt = connection.prepareStatement(sql);
 			stmt.execute();
 			stmt.close();
@@ -44,6 +48,8 @@ public class ProdutoDao {
 			while (rs.next()) {
 				System.out.println(rs.getInt("id"));
 				System.out.println(rs.getString("nome"));
+				System.out.println(rs.getString("emailFabricante"));
+				System.out.println(rs.getString("dataCriacao"));
 				System.out.println("");
 			}
 
@@ -80,6 +86,8 @@ public class ProdutoDao {
 				Produto produto = new Produto();
 				produto.setId(rs.getInt("id"));
 				produto.setNome(rs.getString("nome"));
+				produto.setDataCriacao(rs.getDate("dataCriacao"));
+				produto.setEmailFabricante(rs.getString("emailFabricante"));
 				produtos.add(produto);
 			}
 			rs.close();
@@ -97,6 +105,7 @@ public class ProdutoDao {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, produto.getNome());
 			stmt.setInt(2, produto.getId());
+			
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {

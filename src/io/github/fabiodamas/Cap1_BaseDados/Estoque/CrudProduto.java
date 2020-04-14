@@ -12,7 +12,7 @@ public class CrudProduto {
 		Produto produto = new Produto();
 		ProdutoDao dao = new ProdutoDao();
 
-		produto.setNome("produto " + LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+		/* produto.setNome("produto " + LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
 				.withLocale(new Locale("pt", "br"))).toString());
 		
 		dao.adiciona(produto);
@@ -34,6 +34,10 @@ public class CrudProduto {
 		produto.setId(0);
 		produto.setNome("alterado");
 		dao.altera(produto);
+		
+		*/
+		
+		System.out.println( dao.getLista());
 		
 		
 		
