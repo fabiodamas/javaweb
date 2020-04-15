@@ -20,11 +20,16 @@ public class ProdutoDao {
 		// "jdbc:hsqldb:mem:estoque"
 		try {
 			// banco de dados
+			java.sql.PreparedStatement stmt ;
+			String sql ;
 
+			/*
 			String sql = "drop table produto";
-			java.sql.PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt = connection.prepareStatement(sql);
+			
 			stmt.execute();
 			stmt.close();
+			*/
 			
 			sql = "create table IF NOT EXISTS produto (id INTEGER IDENTITY PRIMARY KEY, nome varchar(30), emailFabricante varchar(30), dataCriacao date) ; ";
 			stmt = connection.prepareStatement(sql);
