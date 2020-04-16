@@ -31,19 +31,9 @@ public class AdicionaProdutoServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 
-		String nome = "teste"; // request.getParameter("nome");
-		String emailFabricante = "teste@teste"; // request.getParameter("email");
-		String dataEmTexto = "15/04/2020"; // request.getParameter("dataNascimento");
-		Calendar dataCriacao = null;
-
-		try {
-			Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataEmTexto);
-			dataCriacao = Calendar.getInstance();
-			dataCriacao.setTime(date);
-		} catch (ParseException e) {
-			out.println("Erro de conversão da data");
-			return;
-		}
+		String nome = request.getParameter("nome");
+		String emailFabricante = request.getParameter("email_fabricante");
+		Calendar dataCriacao = Calendar.getInstance();
 
 		Produto produto = new Produto();
 		produto.setNome(nome);
@@ -60,8 +50,10 @@ public class AdicionaProdutoServlet extends HttpServlet {
 		// sucesso");
 		System.out.println(nome);
 		System.out.println(emailFabricante);
-		System.out.println(dataCriacao);
+		System.out.println(dataCriacao.getTime());
 		out.println("</body>");
 		out.println("</html>");
+		
+		dao.fechar();
 	}
 }

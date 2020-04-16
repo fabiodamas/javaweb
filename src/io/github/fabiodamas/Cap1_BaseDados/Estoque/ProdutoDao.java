@@ -1,6 +1,7 @@
 package io.github.fabiodamas.Cap1_BaseDados.Estoque;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,11 +69,13 @@ public class ProdutoDao {
 	}
 
 	public void adiciona(Produto produto) {
-		String sql = "insert into produto " + "(nome)" + " values (?)";
+		String sql = "insert into produto (nome, emailFabricante, dataCriacao) values ( ?,?, ?) ;";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, produto.getNome());
+			stmt.setString(2, produto.getEmailFabricante());
+			stmt.setDate(3, new java.sql.Date( produto.getDataCriacao().getTime()));
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
