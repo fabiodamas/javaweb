@@ -18,13 +18,19 @@ public class Ex5_JDBCInsere {
                     " values (?,?,?,?)";
             
             PreparedStatement stmt = con.prepareStatement(sql);
+            
+            Contato c = new Contato();
+            
+            c.setNome("fabio");
+            c.setEmail("fabio@teste.com.br");
+            c.setEndereco("Rua Aurora, 123");
+            c.setDataNascimento(Calendar.getInstance());
 
             // preenche os valores
-            stmt.setString(1, "ludmila");
-            stmt.setString(2, "lulu@luluzao.com.br");
-            stmt.setString(3, "R. Teste cj57");
-            stmt.setDate(4, new java.sql.Date(
-                    Calendar.getInstance().getTimeInMillis()));
+            stmt.setString(1,c.getNome());
+            stmt.setString(2, c.getEmail());
+            stmt.setString(3, c.getEndereco());
+            stmt.setDate(4, new java.sql.Date( c.getDataNascimento().getTimeInMillis()));
 
             // executa
             stmt.execute();

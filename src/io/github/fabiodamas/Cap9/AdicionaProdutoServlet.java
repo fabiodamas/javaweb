@@ -2,11 +2,9 @@ package io.github.fabiodamas.Cap9;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,18 +40,11 @@ public class AdicionaProdutoServlet extends HttpServlet {
 
 		// salva o produto
 		dao.adiciona(produto);
-
-		// imprime o nome do produto que foi adicionado
-		out.println("<html>");
-		out.println("<body>");
-		// out.println("Produto " + produto.getNome() + " adicionado com
-		// sucesso");
-		System.out.println(nome);
-		System.out.println(emailFabricante);
-		System.out.println(dataCriacao.getTime());
-		out.println("</body>");
-		out.println("</html>");
 		
 		dao.fechar();
+		
+		 RequestDispatcher rd = request
+			        .getRequestDispatcher("/produto-adicionado.jsp");
+		 rd.forward(request,response);		
 	}
 }

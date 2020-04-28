@@ -2,13 +2,14 @@ package io.github.fabiodamas.Cap1_BaseDados;
 
 import java.util.Calendar;
 
-public class Ex8_Contato {
+public class Contato {
 
         private Long id;
         private String nome;
         private String email;
         private String endereco;
         private Calendar dataNascimento;
+ 
 
         public String getNome() {
             return this.nome;
@@ -31,7 +32,12 @@ public class Ex8_Contato {
             this.endereco = novo;
         }
 
-        public Long getId() {
+        @Override
+		public String toString() {
+			return "Contato [id=" + id + ", nome=" + nome + ", email=" + email + ", endereco=" + endereco
+					+ ", dataNascimento=" + dataNascimento + "]";
+		}
+		public Long getId() {
             return this.id;
         }
         public void setId(Long novo) {

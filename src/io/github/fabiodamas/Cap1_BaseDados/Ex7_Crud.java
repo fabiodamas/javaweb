@@ -10,25 +10,43 @@ import java.util.Locale;
 public class Ex7_Crud {
 
 	public static void main(String[] args) {
-		Ex8_Contato contato = new Ex8_Contato();
+		Contato contato = new Contato();
 
+		// adiciona
 		contato.setNome("Nome " + LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
 				.withLocale(new Locale("pt", "br"))).toString());
 		contato.setEmail("fabio.damas@gmail.com");
 		contato.setEndereco("Avenida Nossa Senhora da Assunção, 780");
 		contato.setDataNascimento(Calendar.getInstance());
-		Ex6_ContatoDao dao = new Ex6_ContatoDao();
+		ContatoDao dao = new ContatoDao();
 		dao.adiciona(contato);
 		System.out.println("Gravado!");
 
-		List<Ex8_Contato> contatos = dao.getLista();
-		for (Ex8_Contato c : contatos) {
+		// getLista
+		List<Contato> contatos = dao.getLista();
+		for (Contato c : contatos) {
+			
+			System.out.println("Id: " + c.getId());
 			System.out.println("Nome: " + c.getNome());
 			System.out.println("Email: " + c.getEmail());
-			System.out.println("Endereço: " + c.getEndereco());
+			System.out.println("Endere�o: " + c.getEndereco());
 			System.out.println("Data de Nascimento: " + c.getDataNascimento().getTime() + "\n");
 		}
-
+		
+		
+		// getById
+		Contato busca = new Contato();
+		busca = dao.getById(5);
+		System.out.println(busca);
+		
+		// update
+		busca.setNome("Alterado");
+		dao.altera(busca);
+		
+		
+		// dao.remove(busca);
+		
+		
 	}
 
 }

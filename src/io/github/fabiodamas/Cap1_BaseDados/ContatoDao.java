@@ -9,21 +9,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Ex6_ContatoDao {
+public class ContatoDao {
 
 	// a conexão com o banco de dados
-	private Connection connection;
+	private Connection conexao;
 
-	public Ex6_ContatoDao() {
-		this.connection = new Ex3_ConnectionFactory().getConnection();
+	public ContatoDao() {
+		this.conexao = new Ex3_ConnectionFactory().getConnection();
 	}
 
-	public void adiciona(Ex8_Contato contato) {
+	public void adiciona(Contato contato) {
 		String sql = "insert into contatos " + "(nome,email,endereco,dataNascimento)" + " values (?,?,?,?)";
 
 		try {
 			// prepared statement para inserção
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = conexao.prepareStatement(sql);
 
 			// seta os valores
 			stmt.setString(1, contato.getNome());
@@ -39,15 +39,43 @@ public class Ex6_ContatoDao {
 		}
 	}
 
-	public List<Ex8_Contato> getLista() {
+	public Contato getById(int id) {
 		try {
-			List<Ex8_Contato> contatos = new ArrayList<Ex8_Contato>();
-			PreparedStatement stmt = this.connection.prepareStatement("select * from contatos");
+			Contato contato = new Contato();
+			Calendar data = Calendar.getInstance();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from contatos where id = ? ");
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+
+			while (rs.next()) {
+				// criando o objeto Contato
+				contato.setId(rs.getLong("id"));
+				contato.setNome(rs.getString("nome"));
+				contato.setEmail(rs.getString("email"));
+				contato.setEndereco(rs.getString("endereco"));
+				data.setTime(rs.getDate("dataNascimento"));
+				contato.setDataNascimento(data);
+			}
+			rs.close();
+			stmt.close();
+			return contato;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+	
+	public List<Contato> getLista() {
+		try {
+			List<Contato> contatos = new ArrayList<Contato>();
+			PreparedStatement stmt = this.conexao.prepareStatement("select * from contatos");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				// criando o objeto Contato
-				Ex8_Contato contato = new Ex8_Contato();
+				Contato contato = new Contato();
 				contato.setId(rs.getLong("id"));
 				contato.setNome(rs.getString("nome"));
 				contato.setEmail(rs.getString("email"));
@@ -70,10 +98,10 @@ public class Ex6_ContatoDao {
 
 	}
 
-	public void altera(Ex8_Contato contato) {
+	public void altera(Contato contato) {
 		String sql = "update contatos set nome=?, email=?, endereco=?," + "dataNascimento=? where id=?";
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = conexao.prepareStatement(sql);
 			stmt.setString(1, contato.getNome());
 			stmt.setString(2, contato.getEmail());
 			stmt.setString(3, contato.getEndereco());
@@ -86,9 +114,9 @@ public class Ex6_ContatoDao {
 		}
 	}
 
-	public void remove(Ex8_Contato contato) {
+	public void remove(Contato contato) {
 		try {
-			PreparedStatement stmt = connection.prepareStatement("delete " + "from contatos where id=?");
+			PreparedStatement stmt = conexao.prepareStatement("delete from contatos where id=?");
 			stmt.setLong(1, contato.getId());
 			stmt.execute();
 			stmt.close();

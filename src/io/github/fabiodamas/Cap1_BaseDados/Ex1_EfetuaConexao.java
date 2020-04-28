@@ -5,10 +5,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Ex1_EfetuaConexao {
-    public static void main(String[] args) throws SQLException {
-        Connection conexao = DriverManager.getConnection("jdbc:mysql://localhost/aula", "root", "");
-        System.out.println("Conectado!");
-        conexao.close();
-        
-    }
+	public static void main(String[] args) {
+		try {
+			Connection conexao;
+			conexao = DriverManager.getConnection("jdbc:mysql://localhost/aula", "root", "");
+			conexao.close();
+			System.out.println("Conectado!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
