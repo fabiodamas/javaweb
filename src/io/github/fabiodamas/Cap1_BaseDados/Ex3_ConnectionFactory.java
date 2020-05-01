@@ -5,12 +5,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Ex3_ConnectionFactory {
-    public Connection getConnection() {
-        try {
-            return DriverManager.getConnection(
-                	"jdbc:mysql://localhost/aula", "root", "");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+	public Connection getConnection() {
+		
+		Connection con = null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/aula", "root", "");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return con;
+	}
 }

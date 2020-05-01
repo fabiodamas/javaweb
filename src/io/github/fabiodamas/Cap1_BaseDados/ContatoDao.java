@@ -14,7 +14,7 @@ public class ContatoDao {
 	// a conexão com o banco de dados
 	private Connection conexao;
 
-	public ContatoDao() {
+	public ContatoDao()  {
 		this.conexao = new Ex3_ConnectionFactory().getConnection();
 	}
 

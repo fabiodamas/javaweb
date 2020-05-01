@@ -45,6 +45,8 @@ public class AdicionaProdutoServlet extends HttpServlet {
 		
 		 RequestDispatcher rd = request
 			        .getRequestDispatcher("/produto-adicionado.jsp");
-		 rd.forward(request,response);		
+		 rd.forward(request,response);	
+		 
+		 
 	}
 }
